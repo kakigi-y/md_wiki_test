@@ -9,6 +9,5 @@ graph TD
     C -->|Two| E[iPhone]
     C -->|Three| F[fa:fa-car Car]
 ```
-```
+
 $$ e^{i x} = \cos{x} + i \sin{x} $$
-```
