@@ -27,19 +27,6 @@
       renderer.code = function (code, language, escaped) {
         if(code.match(/^sequenceDiagram/)||code.match(/^graph/)||code.match(/^gantt/)){
            return '<div class="mermaid">' + code + '\n</div>';
-        }else if (!language) {
-          const math = function (code) {
-            if (code.match(/^\$\$[\s\S]*\$\$$/)) {
-              code = code.substr(2, code.length - 4)
-              return katex.renderToString(code, { displayMode: true, noannotation: true })
-            } else if (code.match(/^\$[\s\S]*\$$/)) {
-              code = code.substr(1, code.length - 2)
-              return katex.renderToString(code, { isplayMode: false })
-            }
-          };
-          if (math) {
-            return math
-          }
         }else{
            return '<pre><code>\n' + hljs.highlightAuto(code).value + '\n</code></pre>';
         }
@@ -58,7 +45,14 @@
           mermaid.init();
         });
       });
-      </script>
-
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {delimiters: [
+          {left: "\\[", right: "\\]", display: true},
+          {left: "$", right: "$", display: false}
+        ]});
+      });
+    </script>
   </body>
 </html>
