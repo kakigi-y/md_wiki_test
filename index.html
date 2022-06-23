@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="jp">
+  <head>
+    <meta charset="utf-8">
+    <title>MARKUP</title>
+    <link rel="stylesheet" href="./styles/default.css" />
+    <script src="./lib/jquery-3.6.0.min.js"></script>
+    <script src="./lib/marked.min.js"></script>
+    <script src="./lib/mermaid.min.js"></script>
+    <script src="./lib/highlight.pack.js"></script>
+    <!--
+    MEMO: レンダリングを読み込み時にしない
+    任意のタイミングで行うために、するのだ。
+    ref: https://naosim.hatenablog.jp/entry/2018/02/20/071042
+    -->
+    <script>mermaid.initialize({startOnLoad:false});</script>
+  </head>
+  <body id="content">
+    <script>
+      var renderer = new marked.Renderer();
+      renderer.code = function (code, language, escaped) {
+        if(code.match(/^sequenceDiagram/)||code.match(/^graph/)||code.match(/^gantt/)){
+           return '<div class="mermaid">' + code + '\n</div>';
+        }else{
+           return '<pre><code>\n' + hljs.highlightAuto(code).value + '\n</code></pre>';
+        }
+      };
+      $(document).ready(function(){
+        if (location.href.split("#").length > 1){
+          var urlParam = location.href.split("#")[1];
+          $.get( urlParam, function( data ) {
+            // Memo: markedのレンダリング-> marmaid.init()
+            // ただし、あらかじめstartOnLoad:falseにしておかないと、
+            // markedの前にmermaidが走ってしまって、mermaidで変換されない。
+            $('#content').html(marked(data, { renderer: renderer }));
+            mermaid.init();
+          });
+        }else{
+          $('#content').html('please url#any.md');
+        }
+      });
+      </script>
+
+  </body>
+</html>
