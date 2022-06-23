@@ -1,6 +1,6 @@
 # About
 This is test repo for wiki written with markdown.
-version 0.0.1
+version 0.0.2
 
 ```mermaid
 graph TD
