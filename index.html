@@ -7,10 +7,12 @@
     <meta charset="utf-8">
     <title>MARKUP</title>
     <link rel="stylesheet" href="./styles/default.css" />
+    <link rel="stylesheet" href="./styles/katex.min.css" />
     <script src="./lib/jquery-3.6.0.min.js"></script>
     <script src="./lib/marked.min.js"></script>
     <script src="./lib/mermaid.min.js"></script>
     <script src="./lib/highlight.min.js"></script>
+    <script src="./lib/katex.min.js"></script>
     <!--
     MEMO: レンダリングを読み込み時にしない
     任意のタイミングで行うために、するのだ。
@@ -36,7 +38,15 @@
         if(code.match(/^sequenceDiagram/)||code.match(/^graph/)||code.match(/^gantt/)){
            return '<div class="mermaid">' + code + '\n</div>';
         }else if (!language) {
-          const math = mathsExpression(code)
+          const math = function (code) {
+            if (code.match(/^\$\$[\s\S]*\$\$$/)) {
+              code = code.substr(2, code.length - 4)
+              return katex.renderToString(code, { displayMode: true, noannotation: true })
+            } else if (code.match(/^\$[\s\S]*\$$/)) {
+              code = code.substr(1, code.length - 2)
+              return katex.renderToString(code, { isplayMode: false })
+            }
+          };
           if (math) {
             return math
           }
