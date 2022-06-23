@@ -1,3 +1,6 @@
+<!--
+  ref: https://qiita.com/gat3ta/items/1e9ada8d81d423d60493
+-->
 <!DOCTYPE html>
 <html lang="jp">
   <head>
@@ -26,18 +29,18 @@
         }
       };
       $(document).ready(function(){
-        if (location.href.split("#").length > 1){
-          var urlParam = location.href.split("#")[1];
-          $.get( urlParam, function( data ) {
-            // Memo: markedのレンダリング-> marmaid.init()
-            // ただし、あらかじめstartOnLoad:falseにしておかないと、
-            // markedの前にmermaidが走ってしまって、mermaidで変換されない。
-            $('#content').html(marked(data, { renderer: renderer }));
-            mermaid.init();
-          });
+        if (location.href.split("#!").length > 1){
+          var urlParam = location.href.split("#!")[1];
         }else{
-          $('#content').html('please url#any.md');
+          var urlParam = "index.html";
         }
+        $.get( urlParam, function( data ) {
+          // Memo: markedのレンダリング-> marmaid.init()
+          // ただし、あらかじめstartOnLoad:falseにしておかないと、
+          // markedの前にmermaidが走ってしまって、mermaidで変換されない。
+          $('#content').html(marked(data, { renderer: renderer }));
+          mermaid.init();
+        });
       });
       </script>
 
