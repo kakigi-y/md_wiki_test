@@ -14,7 +14,6 @@
     <script src="./lib/highlight.min.js"></script>
     <script src="./lib/katex.min.js"></script>
 
-    <script src="./scripts/jquery-header.js"></script>
     <!--
     MEMO: レンダリングを読み込み時にしない
     任意のタイミングで行うために、するのだ。
@@ -99,6 +98,17 @@
           $('#content').html(marked(data, { renderer: renderer }));
           mermaid.init();
         });
+      });
+    </script>
+
+    <!--JQuery-->
+    <script src="./scripts/jquery-header.js"></script>
+    <script>
+      //共通パーツ読み込み
+      $(function () {
+      $("#header").load("./common/header.html");
+      $("#side").load("./common/side.html");
+      $("#footer").load("./common/footer.html");
       });
     </script>
   </body>
