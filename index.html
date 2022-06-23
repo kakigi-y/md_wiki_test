@@ -21,7 +21,13 @@
     -->
     <script>mermaid.initialize({startOnLoad:false});</script>
   </head>
-  <body id="content">
+  <body>
+    <header id="header"></header>
+    <div class="wrapper">
+        <div id="content"></div>
+        <div id="side"></div>
+    </div>
+    <footer id="footer"></footer>
     <script>
       var renderer = new marked.Renderer();
       renderer.code = function (code, language, escaped) {
