@@ -13,7 +13,6 @@
     <script src="./lib/mermaid.min.js"></script>
     <script src="./lib/highlight.min.js"></script>
     <script src="./lib/katex.min.js"></script>
-    <script src="./lib/auto-render.min.js"></script>
     <!--
     MEMO: レンダリングを読み込み時にしない
     任意のタイミングで行うために、するのだ。
@@ -27,6 +26,20 @@
       renderer.code = function (code, language, escaped) {
         if(code.match(/^sequenceDiagram/)||code.match(/^graph/)||code.match(/^gantt/)){
            return '<div class="mermaid">' + code + '\n</div>';
+        }else if (!language) {
+          const mathsExpression = function (expr) {
+            if (expr.match(/^\$\$[\s\S]*\$\$$/)) {
+              expr = expr.substr(2, expr.length - 4)
+              return katex.renderToString(expr, { displayMode: true, noannotation: true })
+            } else if (expr.match(/^\$[\s\S]*\$$/)) {
+              expr = expr.substr(1, expr.length - 2)
+              return katex.renderToString(expr, { isplayMode: false })
+            }
+          };
+          const math = mathsExpression(code);
+          if (math) {
+            return math
+          }
         }else{
            return '<pre><code>\n' + hljs.highlightAuto(code).value + '\n</code></pre>';
         }
@@ -44,14 +57,6 @@
           $('#content').html(marked(data, { renderer: renderer }));
           mermaid.init();
         });
-      });
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {delimiters: [
-          {left: "\\[", right: "\\]", display: true},
-          {left: "$", right: "$", display: false}
-        ]});
       });
     </script>
   </body>
