@@ -32,7 +32,7 @@
         if (location.href.split("#!").length > 1){
           var urlParam = location.href.split("#!")[1];
         }else{
-          var urlParam = "index.html";
+          var urlParam = "index.md";
         }
         $.get( urlParam, function( data ) {
           // Memo: markedのレンダリング-> marmaid.init()
