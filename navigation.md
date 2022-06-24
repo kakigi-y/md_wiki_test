@@ -1,4 +1,4 @@
 # hijimasa's wiki
 
-- (About)[#!about.md]
-- (Test)[#!test.md]
+- [About](#!about.md)
+- [Test](#!test.md)
