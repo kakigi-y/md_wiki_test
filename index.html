@@ -42,10 +42,8 @@
   </head>
   <body>
     <header id="header"></header>
-    <div class="wrapper">
-        <div id="content"></div>
-        <div id="side"></div>
-    </div>
+    <div id="toc"></div>
+    <div id="content"></div>
     <footer id="footer"></footer>
     <script>
       var renderer = new marked.Renderer();
@@ -131,13 +129,13 @@
         });
       });
     </script>
+    <script src="./scripts/make_mokuji.js"></script>
 
     <!--JQuery-->
     <script src="./scripts/jquery-header.js"></script>
     <script>
       //共通パーツ読み込み
       $(function () {
-      $("#side").load("./common/side.html");
       $("#footer").load("./common/footer.html");
       });
     </script>
