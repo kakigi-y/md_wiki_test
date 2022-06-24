@@ -14,6 +14,24 @@
     <script src="./lib/mermaid.min.js"></script>
     <script src="./lib/highlight.min.js"></script>
     <script src="./lib/katex.min.js"></script>
+    <script>
+      $(document).on("click", "a", function(){
+         event.preventDefault();
+         var linkUrl = $(this).attr('href');
+ 
+           // ここにリンク先への遷移直前に実行する内容を記述
+ 
+        function action() {
+          location.href = linkUrl;
+ 
+          // ここにリンク先への移動直後に実行する内容を記述
+          
+          // 移動後のmdが反映されるようにリロードを実行
+          window.location.reload();
+       }
+      setTimeout(action,500);
+      });
+    </script>
 
     <!--
     MEMO: レンダリングを読み込み時にしない
@@ -112,6 +130,7 @@
           $('#header').html(marked(data, { renderer: renderer }));
         });
       });
+      window.location.reload();
     </script>
 
     <!--JQuery-->
