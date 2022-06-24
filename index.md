@@ -2,6 +2,8 @@
 This is test repo for wiki written with markdown.
 version 0.0.2
 
+
+
 ```mermaid
 graph TD
     A[Christmas] -->|Get money| B(Go shopping)
