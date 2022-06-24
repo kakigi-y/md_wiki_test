@@ -105,12 +105,17 @@
           $('#content').html(marked(data, { renderer: renderer }));
           mermaid.init();
         });
+        $.get( "navigation.md", function( data ) {
+          // Memo: markedのレンダリング-> marmaid.init()
+          // ただし、あらかじめstartOnLoad:falseにしておかないと、
+          // markedの前にmermaidが走ってしまって、mermaidで変換されない。
+          $('#header').html(marked(data, { renderer: renderer }));
+        });
       });
     </script>
 
     <!--JQuery-->
     <script src="./scripts/jquery-header.js"></script>
-    <script src="./scripts/marked-header.js"></script>
     <script>
       //共通パーツ読み込み
       $(function () {
